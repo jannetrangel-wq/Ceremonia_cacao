@@ -1,5 +1,5 @@
 /**
- * CELEBRACIÓN DE JOSÉ — CEREMONIA DE CACAO & PACHANGA
+ * CELEBRACIÓN DE JOSÉ AUGUSTO — CEREMONIA DE CACAO & PACHANGA
  * Robust Audiovisual Engine, Accurate Geometry & Smooth Crossfade
  */
 

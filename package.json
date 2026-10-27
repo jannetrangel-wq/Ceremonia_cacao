@@ -1,7 +1,7 @@
 {
   "name": "ceremonia-cacao-jose",
   "version": "1.0.0",
-  "description": "Invitación interactiva para la ceremonia de cacao y celebración de José",
+  "description": "Invitación interactiva para la ceremonia de cacao y celebración de José Augusto",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
