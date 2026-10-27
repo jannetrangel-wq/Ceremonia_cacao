@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./styles.css?v=2.5">
+  <link rel="stylesheet" href="./styles.css?v=2.7">
 </head>
 <body class="is-mystery">
 
@@ -282,7 +282,13 @@
             <span>Confirmar asistencia por WhatsApp</span>
           </a>
 
-          <button id="add-to-calendar-btn" class="action-btn calendar-btn">
+          <a 
+            id="add-to-calendar-btn" 
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ceremonia%20de%20cacao%20%E2%80%94%20Cumplea%C3%B1os%20de%20Jos%C3%A9&dates=20261107T163000/20261107T183000&details=Ven%20con%20ropa%20c%C3%B3moda%20y%20una%20intenci%C3%B3n%20en%20mente.%20Llegada%20a%20las%204%3A30%20PM%3B%20la%20ceremonia%20comienza%20puntualmente%20a%20las%205%3A00%20PM.&location=Privada%20Londres%206404%2C%20Monterrey&ctz=America/Monterrey" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="action-btn calendar-btn"
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
               <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -291,8 +297,8 @@
               <line x1="12" y1="14" x2="12" y2="18"></line>
               <line x1="10" y1="16" x2="14" y2="16"></line>
             </svg>
-            <span>Guardar en mi calendario</span>
-          </button>
+            <span>Guardar en Google Calendar</span>
+          </a>
         </div>
 
       </div>
@@ -367,6 +373,6 @@
     crossorigin="anonymous"
   ></audio>
 
-  <script src="./app.js?v=2.5"></script>
+  <script src="./app.js?v=2.7"></script>
 </body>
 </html>

@@ -596,43 +596,10 @@
     canvasObserver.observe(DOM.pachangaSection);
   }
 
-  // --- Add to Calendar (.ics Generator) ---
+  // --- Google Calendar Navigation ---
   function initCalendarExport() {
-    DOM.calendarBtn.addEventListener('click', () => {
-      const title = 'Ceremonia de Cacao y Celebración de José';
-      const location = 'Privada Londres 6404, Monterrey, Nuevo León, México';
-      const description = 'José te invita a celebrar un nuevo ciclo. Ceremonia de cacao a las 5:00 p.m. (llegada 4:30 p.m.) y pachanga posterior. Ven con ropa cómoda y una intención en mente.';
-      
-      const icsData = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//Celebracion Jose//ES',
-        'CALSCALE:GREGORIAN',
-        'METHOD:PUBLISH',
-        'BEGIN:VEVENT',
-        'UID:jose-cacao-2026@celebracion',
-        'DTSTAMP:20261026T000000Z',
-        'DTSTART:20261107T223000Z',
-        'DTEND:20261108T080000Z',
-        `SUMMARY:${title}`,
-        `DESCRIPTION:${description}`,
-        `LOCATION:${location}`,
-        'STATUS:CONFIRMED',
-        'SEQUENCE:0',
-        'END:VEVENT',
-        'END:VCALENDAR'
-      ].join('\r\n');
-
-      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'Ceremonia_Cacao_Jose.ics';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    });
+    // The calendar CTA directly navigates to the prefilled Google Calendar TEMPLATE link in a new tab.
+    // No .ics file download is triggered.
   }
 
   // --- Audio Toggle Pill Button ---

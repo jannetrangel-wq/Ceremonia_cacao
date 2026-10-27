@@ -1152,6 +1152,67 @@ button, a {
 }
 
 /* --- 8. Responsive Adjustments --- */
+@media (max-width: 640px) {
+  .audio-control-container {
+    top: calc(10px + var(--safe-top));
+    right: 12px;
+  }
+
+  .audio-pill-btn {
+    padding: 6px 12px;
+    font-size: 0.74rem;
+    gap: 6px;
+  }
+
+  .hero-stage {
+    padding-top: calc(52px + var(--safe-top));
+    padding-bottom: calc(12px + var(--safe-bottom));
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .mystery-top-header {
+    padding: 2px 8px 6px;
+  }
+
+  .ceremonial-subtitle {
+    font-size: clamp(1.15rem, 4.2vw, 1.45rem);
+    line-height: 1.3;
+  }
+
+  .mystery-bottom-cue {
+    padding: 4px 10px;
+  }
+
+  .seed-touch-cue-btn {
+    padding: 8px 18px;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .audio-control-container {
+    top: calc(8px + var(--safe-top));
+    right: 8px;
+  }
+
+  .audio-pill-btn {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+    gap: 5px;
+  }
+
+  .hero-stage {
+    padding-top: calc(48px + var(--safe-top));
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .ceremonial-subtitle {
+    font-size: 1.05rem;
+  }
+}
+
 @media (min-width: 768px) {
   .invitation-section {
     padding: 68px 32px 40px;
