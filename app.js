@@ -648,12 +648,154 @@
     });
   }
 
+  // --- Subtle Touch Interaction Effects Across Invitation ---
+  function initTouchEffects() {
+    const canvas = document.getElementById('touch-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let dpr = window.devicePixelRatio || 1;
+    let width = 0;
+    let height = 0;
+
+    function resize() {
+      dpr = window.devicePixelRatio || 1;
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    const sparks = [];
+    const pulses = [];
+    let animId = null;
+
+    function spawnTouchEffect(x, y) {
+      if (x < 0 || y < 0 || x > width || y > height) return;
+
+      // 1. Soft expanding circular light pulse (aura)
+      pulses.push({
+        x,
+        y,
+        radius: 8,
+        maxRadius: Math.min(42, Math.max(30, width * 0.08)),
+        alpha: 0.65,
+        fadeSpeed: 0.035
+      });
+
+      // 2. 4 to 6 delicate golden spark flecks
+      const count = 4 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 1.0 + Math.random() * 2.2;
+        const color = Math.random() > 0.4 ? '#ffd875' : '#f59e0b';
+        sparks.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.35, // subtle natural upward float
+          size: 1.1 + Math.random() * 1.3,
+          alpha: 0.9,
+          decay: 0.025 + Math.random() * 0.018,
+          color
+        });
+      }
+
+      if (!animId) {
+        animId = requestAnimationFrame(animate);
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Render light pulses
+      for (let i = pulses.length - 1; i >= 0; i--) {
+        const p = pulses[i];
+        p.radius += (p.maxRadius - p.radius) * 0.14 + 0.6;
+        p.alpha -= p.fadeSpeed;
+
+        if (p.alpha <= 0.01) {
+          pulses.splice(i, 1);
+          continue;
+        }
+
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+        grad.addColorStop(0, `rgba(255, 235, 175, ${p.alpha * 0.45})`);
+        grad.addColorStop(0.45, `rgba(245, 158, 11, ${p.alpha * 0.22})`);
+        grad.addColorStop(1, 'rgba(217, 119, 6, 0)');
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Delicate perimeter ring
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 0.92, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 216, 117, ${p.alpha * 0.35})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      // Render golden spark flecks
+      ctx.shadowBlur = 4;
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const s = sparks[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.vx *= 0.94;
+        s.vy *= 0.94;
+        s.vy -= 0.035; // gentle upward drift
+        s.alpha -= s.decay;
+
+        if (s.alpha <= 0.01) {
+          sparks.splice(i, 1);
+          continue;
+        }
+
+        ctx.shadowColor = s.color;
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = Math.max(0, s.alpha);
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1.0;
+      ctx.shadowBlur = 0;
+
+      if (pulses.length > 0 || sparks.length > 0) {
+        animId = requestAnimationFrame(animate);
+      } else {
+        ctx.clearRect(0, 0, width, height);
+        animId = null;
+      }
+    }
+
+    // Modern pointerdown fires for desktop click, mobile tap, stylus tap instantly
+    window.addEventListener('pointerdown', (e) => {
+      if (e.isPrimary === false) return;
+      spawnTouchEffect(e.clientX, e.clientY);
+    }, { passive: true });
+
+    // Expose for testing verification
+    window.__TOUCH_EFFECTS_SPAWN__ = spawnTouchEffect;
+  }
+
   // --- Initialization ---
   document.addEventListener('DOMContentLoaded', () => {
     initSeedExperience();
     initCountdown();
     initScrollTransitions();
     initPartyCanvas();
+    initTouchEffects();
     initCalendarExport();
     initAudioToggle();
   });
