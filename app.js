@@ -8,7 +8,7 @@
 
   // --- Configuration ---
   const CONFIG = {
-    targetDateIso: '2026-11-07T16:30:00-06:00', // Nov 7, 2026, 4:30 PM America/Monterrey (UTC-6)
+    targetDateIso: '2026-11-07T16:00:00-06:00', // Nov 7, 2026, 4:00 PM America/Monterrey (UTC-6)
     partyAudioStartTime: 26.0,                  // Start 26s into festive track
     crossfadeDuration: 6000,                    // 6 seconds crossfade to party
     reCrossfadeDuration: 6000                   // 6 seconds crossfade back to ceremony
